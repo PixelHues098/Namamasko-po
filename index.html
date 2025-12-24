@@ -19,6 +19,33 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    
+    <!-- Audio preload strategy -->
+    <script>
+      // Immediate audio initialization
+      document.addEventListener('DOMContentLoaded', function() {
+        // Create audio element immediately
+        const audio = new Audio('sound/jinglebells.mp3');
+        audio.loop = true;
+        audio.volume = 0.5;
+        audio.preload = 'auto';
+        
+        // Store reference for later use
+        window.christmasAudio = audio;
+        
+        // Try to preload and play muted
+        setTimeout(() => {
+          audio.muted = true;
+          audio.play().then(() => {
+            console.log("✅ Audio preloaded successfully");
+            audio.pause();
+            audio.currentTime = 0;
+          }).catch(e => {
+            console.log("⚠️ Audio preload failed:", e.name);
+          });
+        }, 100);
+      });
+    </script>
   </head>
   <body
     class="bg-gradient-to-br from-red-900 via-green-900 to-red-950 min-h-screen overflow-x-hidden relative"
@@ -166,7 +193,7 @@
       </div>
 
       <!-- Audio Controls - Mobile Optimized -->
-      <audio id="christmasAudio" loop preload="auto" playsinline muted>
+      <audio id="christmasAudio" loop playsinline>
         <source src="sound/jinglebells.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
@@ -201,27 +228,71 @@
         >
       </div>
 
+      <!-- Audio Start Overlay for Mobile -->
+      <div id="audioOverlay" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center hidden">
+        <div class="bg-gradient-to-br from-red-900 to-green-900 rounded-2xl p-6 m-4 text-center max-w-xs border-4 border-amber-300/50">
+          <i data-feather="volume-2" class="w-16 h-16 text-amber-300 mx-auto mb-4"></i>
+          <h3 class="text-2xl text-white font-bold mb-2">Christmas Music 🎵</h3>
+          <p class="text-amber-100 mb-6">Tap the button below to start the festive music!</p>
+          <button id="startAudioBtn" class="bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-lg font-bold px-8 py-3 rounded-full hover:scale-105 transition-transform shadow-lg">
+            Start Music
+          </button>
+        </div>
+      </div>
+
     </main>
 
     <!-- Scripts -->
     <script src="script.js"></script>
     <script>
       feather.replace();
-      // Auto-play audio with user interaction
+      
+      // Audio initialization
       document.addEventListener('DOMContentLoaded', function() {
         const audio = document.getElementById('christmasAudio');
+        const overlay = document.getElementById('audioOverlay');
+        const startBtn = document.getElementById('startAudioBtn');
+        
+        // Set initial volume
         audio.volume = 0.5;
         
-        // Try to play on first interaction
-        const playOnInteraction = () => {
-          audio.muted = false;
-          audio.play().catch(e => console.log("Audio play failed:", e));
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-        };
+        // Check if mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
-        document.addEventListener('click', playOnInteraction);
-        document.addEventListener('touchstart', playOnInteraction);
+        if (isMobile) {
+          // Show overlay on mobile
+          setTimeout(() => {
+            overlay.classList.remove('hidden');
+          }, 1000);
+        } else {
+          // Try autoplay on desktop
+          setTimeout(() => {
+            audio.play().catch(e => {
+              console.log("Desktop autoplay failed, showing overlay");
+              overlay.classList.remove('hidden');
+            });
+          }, 500);
+        }
+        
+        // Start audio on button click
+        startBtn.addEventListener('click', function() {
+          audio.play().then(() => {
+            overlay.classList.add('hidden');
+            console.log("✅ Audio started successfully");
+          }).catch(e => {
+            console.log("❌ Audio start failed:", e);
+            alert("Please tap anywhere on the screen to allow audio playback.");
+          });
+        });
+        
+        // Also allow clicking anywhere on overlay to start
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) {
+            audio.play().then(() => {
+              overlay.classList.add('hidden');
+            }).catch(console.error);
+          }
+        });
       });
     </script>
   </body>

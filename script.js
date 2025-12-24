@@ -185,95 +185,33 @@ class Snowflakes {
     }
 }
 
-// Enhanced Audio Manager
+// Simple Audio Manager for GitHub Pages
 class AudioManager {
     constructor() {
         this.audio = document.getElementById('christmasAudio');
         this.playBtn = document.getElementById('playBtn');
         this.pauseBtn = document.getElementById('pauseBtn');
         this.volumeUp = document.getElementById('volumeUp');
-        this.hasInteracted = false;
-        this.audioLoaded = false;
         
         this.setupEventListeners();
-        this.setupAutoplay();
-    }
-    
-    setupAutoplay() {
-        // Start muted to allow autoplay
-        this.audio.muted = true;
-        this.audio.volume = 0.5;
-        
-        // Try to play immediately (muted)
-        setTimeout(() => {
-            this.audio.play().then(() => {
-                console.log("✅ Audio playing (muted)");
-                // Unmute after user interaction
-                this.setupUnmuteOnInteraction();
-            }).catch(error => {
-                console.log("⚠️ Muted autoplay failed:", error);
-                this.setupInteractionListener();
-            });
-        }, 500);
-    }
-    
-    setupUnmuteOnInteraction() {
-        const unmute = () => {
-            if (!this.hasInteracted) {
-                this.hasInteracted = true;
-                this.audio.muted = false;
-                console.log("🔊 Audio unmuted");
-                this.showToast("🎵 Music playing");
-                
-                // Remove listeners
-                document.removeEventListener('click', unmute);
-                document.removeEventListener('touchstart', unmute);
-            }
-        };
-        
-        document.addEventListener('click', unmute);
-        document.addEventListener('touchstart', unmute);
-    }
-    
-    setupInteractionListener() {
-        const startAudio = () => {
-            if (!this.hasInteracted) {
-                this.hasInteracted = true;
-                this.audio.muted = false;
-                this.audio.play().then(() => {
-                    console.log("✅ Audio started via interaction");
-                    this.showToast("🎵 Music playing");
-                }).catch(error => {
-                    console.log("❌ Play failed:", error);
-                    this.showToast("❌ Could not play audio");
-                });
-                
-                // Remove listeners
-                document.removeEventListener('click', startAudio);
-                document.removeEventListener('touchstart', startAudio);
-            }
-        };
-        
-        document.addEventListener('click', startAudio);
-        document.addEventListener('touchstart', startAudio);
     }
     
     setupEventListeners() {
-        // Play/Pause button
+        // Play button
         this.playBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.audio.paused) {
                 this.audio.play().then(() => {
-                    this.audio.muted = false;
                     this.updateIcons();
                 }).catch(error => {
                     console.log("Play error:", error);
+                    // Show a message to user
+                    alert("Please tap anywhere on the screen first to allow audio playback, then click the play button.");
                 });
             } else {
                 this.audio.pause();
                 this.updateIcons();
             }
-            this.hasInteracted = true;
         });
         
         // Pause button
@@ -281,7 +219,6 @@ class AudioManager {
             e.preventDefault();
             this.audio.pause();
             this.updateIcons();
-            this.hasInteracted = true;
         });
         
         // Volume up button
@@ -289,12 +226,6 @@ class AudioManager {
             e.preventDefault();
             this.audio.volume = Math.min(1, this.audio.volume + 0.1);
             this.showVolumeToast();
-            this.hasInteracted = true;
-            
-            // Ensure audio is unmuted when volume is adjusted
-            if (this.audio.muted) {
-                this.audio.muted = false;
-            }
             
             // Auto-play if paused
             if (this.audio.paused) {
@@ -307,7 +238,6 @@ class AudioManager {
             e.preventDefault();
             this.audio.volume = Math.max(0.1, this.audio.volume - 0.1);
             this.showVolumeToast();
-            this.hasInteracted = true;
             return false;
         });
         
@@ -384,6 +314,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // Page-wide click to enable audio (required for iOS)
+    let pageClicked = false;
+    document.body.addEventListener('click', function enableAudio() {
+        if (!pageClicked) {
+            pageClicked = true;
+            console.log("✅ Page clicked - audio should work now");
+            
+            // Try to play audio if it's not already playing
+            const audio = document.getElementById('christmasAudio');
+            if (audio.paused) {
+                audio.play().catch(e => {
+                    console.log("Audio still blocked:", e);
+                });
+            }
+            
+            // Remove listener after first click
+            document.body.removeEventListener('click', enableAudio);
+        }
+    });
+    
     // Handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
@@ -413,6 +363,13 @@ const addAudioStyles = () => {
             @keyframes slideUp {
                 from { transform: translate(-50%, 20px); opacity: 0; }
                 to { transform: translate(-50%, 0); opacity: 1; }
+            }
+            #audioOverlay {
+                animation: fadeIn 0.5s ease-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
         `;
         document.head.appendChild(style);
