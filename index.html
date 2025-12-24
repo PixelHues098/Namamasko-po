@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Namamasko Po! Kahit Malaki na Ako! 🎄</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Style+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="bg-gradient-to-br from-red-900 via-green-900 to-red-950 min-h-screen overflow-x-hidden relative"
+  >
+    <!-- Fireworks Canvas Background -->
+    <canvas
+      id="fireworksCanvas"
+      class="absolute top-0 left-0 w-full h-full z-0"
+    ></canvas>
+
+    <!-- Main Content Container -->
+    <main
+      class="relative z-10 flex flex-col items-center justify-center min-h-screen px-3 py-4 sm:py-6 text-center overflow-x-hidden"
+    >
+      <!-- Animated Ornament Border -->
+      <div
+        class="ornament-border absolute inset-2 sm:inset-3 md:inset-4 pointer-events-none z-0"
+      ></div>
+
+      <!-- Compact Header Section -->
+      <div class="mb-4 sm:mb-6 animate-float-slow w-full px-1">
+        <h1
+          class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold christmas-font leading-tight tracking-tightest break-keep"
+        >
+          <span
+            class="text-red-400 drop-shadow-[0_0_8px_rgba(255,50,50,0.7)] animate-pulse-slow inline-block"
+            >Nama</span
+          >
+          <span
+            class="text-green-300 drop-shadow-[0_0_8px_rgba(80,255,80,0.7)] inline-block ml-[-0.25em]"
+            >masko</span
+          >
+          <span
+            class="text-yellow-300 drop-shadow-[0_0_8px_rgba(255,255,100,0.7)] animate-bounce-subtle inline-block"
+            >po!</span
+          >
+        </h1>
+        <p
+          class="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-amber-100 font-script opacity-90 max-w-xs sm:max-w-sm md:max-w-md mx-auto leading-snug"
+        >
+          May your Christmas be filled with joy, laughter, and blessings!
+        </p>
+      </div>
+
+      <!-- QR Code Section - LARGER QR -->
+      <div
+        class="mb-4 sm:mb-6 animate-float w-full max-w-[320px] sm:max-w-md md:max-w-lg mx-auto px-1"
+      >
+        <div
+          class="relative p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-800/40 to-green-800/40 backdrop-blur-sm border-3 sm:border-4 border-amber-300/50 shadow-lg"
+        >
+          <!-- Animated Sparkles around QR -->
+          <div
+            class="sparkle absolute -top-1 -left-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-300 animate-twinkle"
+          ></div>
+          <div
+            class="sparkle absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-400 animate-twinkle-delay-1"
+          ></div>
+          <div
+            class="sparkle absolute -bottom-1 -left-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-300 animate-twinkle-delay-2"
+          ></div>
+          <div
+            class="sparkle absolute -bottom-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-amber-300 animate-twinkle-delay-3"
+          ></div>
+
+          <p
+            class="text-sm sm:text-base md:text-lg text-white mb-3 sm:mb-4 font-semibold text-center leading-snug whitespace-normal"
+          >
+            Scan nyo na po, para maging<br class="block sm:hidden" />
+            Merry Christmas ko! 🎁
+          </p>
+
+          <!-- LARGER QR Image -->
+          <div class="flex justify-center">
+            <img
+              id="qrPlaceholder"
+              src="images/QR.jfif"
+              alt="QR Code Placeholder"
+              class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-xl sm:rounded-2xl border-3 sm:border-4 border-amber-200 shadow-lg hover:scale-105 transition-transform duration-300 mx-auto"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact Festive Values Section - Better Mobile Layout -->
+      <div class="mb-4 sm:mb-6 w-full max-w-[300px] sm:max-w-sm mx-auto px-1">
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+          <div class="flex flex-col items-center animate-bounce-subtle-delay">
+            <div
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500/40 to-red-700/40 flex items-center justify-center mb-1 shadow-sm"
+            >
+              <i
+                data-feather="gift"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-red-300 stroke-1"
+              ></i>
+            </div>
+            <span
+              class="text-xs sm:text-sm text-white font-semibold leading-tight"
+              >Gifts</span
+            >
+          </div>
+          <div class="flex flex-col items-center animate-bounce-subtle-delay-2">
+            <div
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-yellow-500/40 to-yellow-700/40 flex items-center justify-center mb-1 shadow-sm"
+            >
+              <i
+                data-feather="star"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 stroke-1"
+              ></i>
+            </div>
+            <span
+              class="text-xs sm:text-sm text-white font-semibold leading-tight"
+              >Joy</span
+            >
+          </div>
+          <div class="flex flex-col items-center animate-bounce-subtle-delay-4">
+            <div
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-pink-500/40 to-pink-700/40 flex items-center justify-center mb-1 shadow-sm"
+            >
+              <i
+                data-feather="heart"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-pink-300 stroke-1"
+              ></i>
+            </div>
+            <span
+              class="text-xs sm:text-sm text-white font-semibold leading-tight"
+              >Love</span
+            >
+          </div>
+          <div class="flex flex-col items-center animate-bounce-subtle-delay-6">
+            <div
+              class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-green-500/40 to-green-700/40 flex items-center justify-center mb-1 shadow-sm"
+            >
+              <i
+                data-feather="home"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-green-300 stroke-1"
+              ></i>
+            </div>
+            <span
+              class="text-xs sm:text-sm text-white font-semibold leading-tight"
+              >Family</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Controls - Mobile Optimized -->
+      <audio id="christmasAudio" loop preload="auto" playsinline muted>
+        <source src="sound/jinglebells.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <div
+        class="flex items-center justify-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 max-w-[280px] sm:max-w-sm mx-auto shadow-sm"
+      >
+        <button
+          id="playBtn"
+          class="text-white hover:text-green-300 transition-colors"
+          title="Play"
+        >
+          <i data-feather="play" class="w-3 h-3 sm:w-4 sm:h-4"></i>
+        </button>
+        <button
+          id="pauseBtn"
+          class="text-white hover:text-red-300 transition-colors"
+          title="Pause"
+        >
+          <i data-feather="pause" class="w-3 h-3 sm:w-4 sm:h-4"></i>
+        </button>
+        <button
+          id="volumeUp"
+          class="text-white hover:text-yellow-300 transition-colors"
+          title="Volume"
+        >
+          <i data-feather="volume-2" class="w-3 h-3 sm:w-4 sm:h-4"></i>
+        </button>
+        <span
+          class="text-xs sm:text-sm text-amber-100 mx-1 sm:mx-2 leading-tight"
+          >🎶 Jingle Bells</span
+        >
+      </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+      feather.replace();
+      // Auto-play audio with user interaction
+      document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('christmasAudio');
+        audio.volume = 0.5;
+        
+        // Try to play on first interaction
+        const playOnInteraction = () => {
+          audio.muted = false;
+          audio.play().catch(e => console.log("Audio play failed:", e));
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+        };
+        
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+      });
+    </script>
+  </body>
+</html>

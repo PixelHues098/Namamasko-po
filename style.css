@@ -1,0 +1,388 @@
+/* Custom Styles for Festive Website - Mobile First Fix */
+
+/* Custom Fonts */
+.christmas-font {
+    font-family: 'Mountains of Christmas', cursive;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.03em;
+}
+
+.font-script {
+    font-family: 'Style Script', cursive;
+}
+
+/* Custom Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
+    50% { filter: drop-shadow(0 0 10px currentColor); }
+}
+
+@keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes fall-mobile {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(100vh) rotate(180deg); opacity: 0; }
+}
+
+/* Animation Classes */
+.animate-float {
+    animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+    animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-twinkle {
+    animation: twinkle 1.8s ease-in-out infinite;
+}
+
+.animate-twinkle-delay-1 {
+    animation: twinkle 1.8s ease-in-out infinite 0.4s;
+}
+
+.animate-twinkle-delay-2 {
+    animation: twinkle 1.8s ease-in-out infinite 0.8s;
+}
+
+.animate-twinkle-delay-3 {
+    animation: twinkle 1.8s ease-in-out infinite 1.2s;
+}
+
+.animate-bounce-subtle {
+    animation: bounce-subtle 2.5s ease-in-out infinite;
+}
+
+.animate-bounce-subtle-delay {
+    animation: bounce-subtle 3s ease-in-out infinite 0.3s;
+}
+
+.animate-bounce-subtle-delay-2 {
+    animation: bounce-subtle 3s ease-in-out infinite 0.6s;
+}
+
+.animate-bounce-subtle-delay-4 {
+    animation: bounce-subtle 3s ease-in-out infinite 1.2s;
+}
+
+.animate-bounce-subtle-delay-6 {
+    animation: bounce-subtle 3s ease-in-out infinite 1.8s;
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Ornament Border - Mobile Optimized */
+.ornament-border {
+    border: 2px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='4' r='3' fill='%23EF4444'/%3E%3Ccircle cx='8' cy='12' r='2' fill='%2322C55E'/%3E%3Ccircle cx='32' cy='12' r='2' fill='%23FBBF24'/%3E%3Ccircle cx='4' cy='24' r='2.5' fill='%23DC2626'/%3E%3Ccircle cx='36' cy='24' r='2.5' fill='%2316A34A'/%3E%3Ccircle cx='20' cy='36' r='3' fill='%23F59E0B'/%3E%3C/svg%3E") 15 round;
+    border-image-width: 8px;
+    border-image-outset: 4px;
+    pointer-events: none;
+}
+
+/* Snowflake styling - Mobile Optimized */
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.7;
+    filter: blur(0.3px);
+    z-index: 1;
+    display: block !important;
+}
+
+.tracking-tightest {
+    letter-spacing: -0.05em;
+}
+
+/* Mobile First Responsive Design */
+@media (max-width: 639px) {
+    /* Fix text display issues */
+    .christmas-font {
+        font-size: 2.5rem !important;
+        line-height: 0.95 !important;
+        word-break: keep-all !important;
+        white-space: nowrap !important;
+    }
+    
+    /* Fix subheading text */
+    .font-script {
+        font-size: 0.95rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .ornament-border {
+        border-image-width: 6px;
+        border-image-outset: 3px;
+        inset: 4px !important;
+    }
+    
+    /* Fireworks on mobile - Lightweight version */
+    #fireworksCanvas {
+        display: block !important;
+        opacity: 0.7;
+    }
+    
+    /* Snowflakes on mobile - FIXED */
+    .snowflake {
+        animation: fall-mobile 8s linear infinite !important;
+    }
+    
+    /* LARGER QR Code for mobile */
+    #qrPlaceholder {
+        width: 192px !important;
+        height: 192px !important;
+        min-width: 192px !important;
+        min-height: 192px !important;
+    }
+    
+    /* Adjust container for larger QR */
+    .max-w-\[320px\] {
+        max-width: 320px !important;
+    }
+    
+    /* Fix for very small screens */
+    @media (max-width: 380px) {
+        .christmas-font {
+            font-size: 2.2rem !important;
+            line-height: 0.9 !important;
+        }
+        
+        main {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            padding-top: 0.5rem !important;
+        }
+        
+        .ornament-border {
+            inset: 2px !important;
+            border-image-width: 4px;
+        }
+        
+        /* Slightly smaller QR on very small screens */
+        #qrPlaceholder {
+            width: 180px !important;
+            height: 180px !important;
+            min-width: 180px !important;
+            min-height: 180px !important;
+        }
+        
+        .max-w-\[320px\] {
+            max-width: 300px !important;
+        }
+    }
+    
+    /* Grid layout for mobile */
+    .grid-cols-2 > div {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .grid-cols-2 > div > div {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .grid-cols-2 > div span {
+        font-size: 0.75rem !important;
+        line-height: 1 !important;
+    }
+    
+    /* Audio controls mobile fix */
+    .bg-black\/40 {
+        padding: 0.4rem 0.75rem !important;
+    }
+    
+    .bg-black\/40 span {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 640px) {
+    .christmas-font {
+        font-size: 3.5rem !important;
+        line-height: 1 !important;
+    }
+    
+    .font-script {
+        font-size: 1.1rem !important;
+    }
+    
+    .ornament-border {
+        border-width: 3px;
+        border-image-width: 10px;
+        border-image-outset: 6px;
+    }
+    
+    /* Snowflakes on larger screens */
+    .snowflake {
+        animation: fall 10s linear infinite !important;
+    }
+    
+    /* Larger QR on tablet */
+    #qrPlaceholder {
+        width: 224px !important;
+        height: 224px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .christmas-font {
+        font-size: 4rem !important;
+    }
+    
+    .ornament-border {
+        border-image-width: 12px;
+        border-image-outset: 8px;
+    }
+    
+    /* Even larger QR on desktop */
+    #qrPlaceholder {
+        width: 256px !important;
+        height: 256px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Largest QR on large screens */
+    #qrPlaceholder {
+        width: 288px !important;
+        height: 288px !important;
+    }
+}
+
+/* Custom breakpoint for very small text */
+@media (max-width: 320px) {
+    .christmas-font {
+        font-size: 2rem !important;
+    }
+    
+    .font-script {
+        font-size: 0.85rem !important;
+    }
+    
+    /* QR for very small screens */
+    #qrPlaceholder {
+        width: 160px !important;
+        height: 160px !important;
+        min-width: 160px !important;
+        min-height: 160px !important;
+    }
+}
+
+/* Prevent text wrapping issues */
+.no-wrap {
+    white-space: nowrap !important;
+}
+
+.break-keep {
+    word-break: keep-all !important;
+}
+
+.break-words {
+    word-break: break-word !important;
+}
+
+/* Audio autoplay animations */
+@keyframes pulse-gentle {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+}
+
+.animate-pulse-gentle {
+    animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.audio-toast {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translate(-50%, 20px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translate(-50%, 0); 
+        opacity: 1; 
+    }
+}
+
+/* Custom utility for very small screens */
+@media (max-width: 280px) {
+    .xs\:text-4xl {
+        font-size: 1.9rem !important;
+    }
+    
+    main {
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
+    }
+    
+    .max-w-\[320px\] {
+        max-width: 260px !important;
+    }
+    
+    .grid-cols-2 > div > div {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* Ensure snowflakes are always visible */
+#snowflakes {
+    display: block !important;
+    pointer-events: none;
+}
+
+/* Mobile Fireworks Optimization */
+@media (max-width: 768px) {
+    #fireworksCanvas {
+        filter: blur(1px);
+        opacity: 0.6;
+    }
+}
+
+/* QR Code Enhancement */
+#qrPlaceholder {
+    transition: all 0.3s ease;
+}
+
+#qrPlaceholder:hover {
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+}
